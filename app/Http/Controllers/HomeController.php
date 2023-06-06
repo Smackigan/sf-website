@@ -9,7 +9,6 @@ class HomeController extends Controller
 
     public function home(): View
     {
-
         return view('home.index');
     }
 
