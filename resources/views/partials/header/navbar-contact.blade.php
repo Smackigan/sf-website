@@ -1,5 +1,5 @@
 <nav class="bg-yellow-200 sticky top-0 ">
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-screen-2xl mx-auto">
         <div class="flex justify-between">
 
             <div class="container flex py-1 px-5">

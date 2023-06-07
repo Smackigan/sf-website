@@ -1,5 +1,5 @@
 <nav class="bg-gray-100">
-    <div class="max-w-7xl mx-auto ">
+    <div class="max-w-screen-2xl mx-auto">
     <div class="flex justify-between">
 
         <div>
@@ -43,8 +43,8 @@
 
 {{-- Logo --}}
 
-<div>
-    <img src="{{ asset('images/bannerimg.png') }}" alt="Banner Image" class="w-full">
+<div class="flex justify-center max-w-screen-2xl mx-auto">
+    <img src="{{ asset('images/bannerimg.png') }}" alt="Banner Image" class="">
 </div>
 
 

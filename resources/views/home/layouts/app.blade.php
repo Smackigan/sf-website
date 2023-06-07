@@ -18,7 +18,7 @@
     @include('partials.header.header')
 
     <!-- content section -->
-    @yield('content')
+    @include('.partials.content.content')
 
     @include('partials.contactform')
 
