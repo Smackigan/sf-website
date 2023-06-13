@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('content', function (Blueprint $table) {
+        Schema::create('subcategories', function (Blueprint $table) {
             $table->id();
             $table->string('title', 2048);
             $table->string('slug', 2048);
             $table->text('description');
             $table->text('category')->nullable();
+            $table->foreignId('content_id')->nullable()->default(null)->constrained('content');
+            // $table->foreignIdFor(\App\Models\User::class, 'content_id');
             $table->string('main_image')->nullable();
             $table->string('image2')->nullable();
             $table->string('image3')->nullable();
@@ -33,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('content');
+        Schema::dropIfExists('subcategories');
     }
 };

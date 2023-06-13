@@ -6,38 +6,37 @@ use Closure;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Content;
+use App\Models\Subcategory;
 use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\Field;
-use Filament\Resources\Tables\Columns;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Forms\Components;
 use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Actions\DeleteBulkAction;
-use App\Filament\Resources\ContentResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\ContentResource\RelationManagers;
+use App\Filament\Resources\SubcategoryResource\Pages;
+use App\Filament\Resources\SubcategoryResource\RelationManagers;
 
-class ContentResource extends Resource
+class SubcategoryResource extends Resource
 {
-    protected static ?string $model = Content::class;
+    protected static ?string $model = Subcategory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-document';
 
     protected static ?string $navigationGroup = 'Production';
 
-    public static ?string $label = 'Categories';
-    public static ?string $singularLabel = 'Category';
+    public static ?string $label = 'Subcategories';
+    public static ?string $singularLabel = 'Subcategory';
 
-    // creating edditing 
     public static function form(Form $form): Form
     {
+
+        $contentOptions = Content::pluck('title')->toArray();
+
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
@@ -47,26 +46,29 @@ class ContentResource extends Resource
                     ->afterStateUpdated(function (Closure $set, $state) {
                         $set('slug', Str::slug($state));
                     }),
-                    Forms\Components\TextInput::make('slug')
+                Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(2048),
-                Forms\Components\TextInput::make('category')
-                ->required()
-                ->maxLength(255),
+                Select::make('category')
+                    ->options(Content::pluck('category', 'category'))
+                    ->required(),
                 Textarea::make('description')
-                ->label('Description'),
+                    ->label('Description')
+                    ->required(),
                 Forms\Components\Toggle::make('active')
-                ->required(),
+                    ->required(),
+                // Select::make('Content', 'content_id')
+                //     ->options($contentOptions)
+                //     ->required(),
                 Forms\Components\FileUpload::make('main_image'),
                 Forms\Components\FileUpload::make('image2'),
                 Forms\Components\FileUpload::make('image3'),
                 Forms\Components\FileUpload::make('image4'),
                 TextInput::make('price')
-                ->label('Price'),
+                    ->label('Price'),
             ]);
     }
 
-    // display content
     public static function table(Table $table): Table
     {
         return $table
@@ -75,17 +77,17 @@ class ContentResource extends Resource
                     ->label('Title')
                     ->searchable()
                     ->sortable(),
-                    TextColumn::make('category')
+                TextColumn::make('category')
                     ->label('Product Category')
                     ->searchable(),
                 TextColumn::make('description')
                     ->label('Description')
                     ->searchable(),
-                    Tables\Columns\IconColumn::make('active')
-                    ->sortable()
-                        ->boolean(),
                 ImageColumn::make('main_image')
-                ->label('Image'),
+                    ->label('Main image'),
+                Tables\Columns\IconColumn::make('active')
+                    ->sortable()
+                    ->boolean(),
                 TextColumn::make('price')
                     ->label('Price')
                     ->searchable(),
@@ -101,20 +103,21 @@ class ContentResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListContents::route('/'),
-            'create' => Pages\CreateContent::route('/create'),
-            'edit' => Pages\EditContent::route('/{record}/edit'),
+            'index' => Pages\ListSubcategories::route('/'),
+            'create' => Pages\CreateSubcategory::route('/create'),
+            'edit' => Pages\EditSubcategory::route('/{record}/edit'),
         ];
-    }    
+    }
 }
