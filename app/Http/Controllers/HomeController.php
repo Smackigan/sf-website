@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
         $content = Content::all();
         
-        return view('partials.content.show', compact('content'));
+        return view('index', compact('content'));
     }
 
 }

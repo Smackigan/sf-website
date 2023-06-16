@@ -1,9 +1,9 @@
-@extends('home.layouts.app')
+@extends('home.layouts.app') 
 
 @section('content')
+@include('partials.content.show')
+@endsection
 
-@include('partials.content.content')
-
+@section('contactform')
 @include('partials.contactform')
-
 @endsection

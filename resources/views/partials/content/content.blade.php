@@ -9,13 +9,25 @@
 
                 @if ($subcategory->isNotEmpty())
                 @foreach ($subcategory as $contentItem)
-                <div class="bg-gray-200 p-4">
-                    <div class="bg-gray-300 border-solid border-2 border-blue-500 transition-transform transform hover:scale-110">
-                        <img src="{{ $contentItem->getImage() }}" class="h-24 w-auto mx-auto">
-                        <p class="text-center mt-2">{{ $contentItem->title }}</p>
+
+                @php
+                $subcategorySlug = $contentItem->slug;
+                $categorySlug = $contentItem->category;
+                $url = route('production.showNested', ['slug' => strtolower($categorySlug), 'slug2' => $subcategorySlug]);
+                // $slug = $contentItem->slug;
+                // $url = route('production.showNested', ['slug' => $contentItem->slug, 'slug2' => $slug]);
+                 @endphp
+
+                <a href=" {{ $url }}">
+                    <div class="bg-gray-200 p-4">
+                        <div class="bg-gray-300 border-solid border-2 border-blue-500 transition-transform transform hover:scale-110">
+                            <img src="{{ $contentItem->getImage() }}" class="h-24 w-auto mx-auto">
+                            <p class="text-center mt-2">{{ $contentItem->title }}</p>
+                        </div>
                     </div>
-                </div>
+                </a>
                  @endforeach
+
                 @else
                 <p>No subcategories found.</p>
                 @endif

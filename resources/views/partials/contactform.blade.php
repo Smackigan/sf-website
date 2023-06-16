@@ -1,4 +1,5 @@
-<div class="bg-gradient-to-b from-yellow-200 to-yellow-400 py-5">
+@section('contactform')
+    <div class="bg-gradient-to-b from-yellow-200 to-yellow-400 py-5">
     <h2 class="text-3xl font-bold text-center mb-4"> Jums ir idejas?</h2>
     <div class="sm:px-6">
         <p class="text-gray-700 text-center mb-2">Suveniru Fabrika SIA ir prezentreklamas uzņēmums, kurš nodarbojas ar
@@ -80,6 +81,7 @@
         </form>
     </div>
 </div>
+@endsection
 
 {{-- <script>
         onsubmit="return validateForm()"

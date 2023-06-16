@@ -35,8 +35,8 @@ class Subcategory extends Model
     //     return $this->belongsToMany(Content::class, 'content_subcategory');
     // }
 
-    public function contents(): BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(Content::class);
+        return $this->belongsTo(Content::class, 'category');
     }
 }

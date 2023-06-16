@@ -28,7 +28,3 @@
 </div>
 
 @endsection
-
-{{-- </@php
-dd($content)
-@endphp --}}

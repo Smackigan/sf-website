@@ -1,3 +1,109 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.main-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 350px;
+    height: auto;
+}
+
+.main-image-content {
+    display: flex;
+    border: 0.5rem;
+}
+
+.main-image {
+    width: 100%;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    /* transition: .5s ease; */
+    background-color: #d4d4d4;
+  }
+
+  .image-grid {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .image-container {
+    flex: 1;
+    max-width: 150px;
+    height: auto;
+    position: relative;
+    display: inline-block;
+    border: solid 4px transparent;
+    border-radius: 0.5rem;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .image-container:hover .overlay {
+    opacity: 0.3;
+  }
+  
+  .image-container:hover img {
+    cursor: pointer;
+    border: 4px solid #c6c127;
+    position: relative;
+    display: inline-block;
+    border-radius: 0.5rem;
+  }
+  
+  /* @media (max-width: 767px) {
+    .image-container {
+        max-width: 100px;
+        height: auto;
+    }
+  } */
+
+  /* ______ */
+
+/* .image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .image-container:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    opacity: 0;
+    transition: border-color 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .image-container:hover:before {
+    border-color: yellow;
+    opacity: 1;
+  }
+  
+  .image-container img {
+    transition: filter 0.3s ease;
+  }
+  
+  .image-container:hover img {
+    filter: brightness(80%);
+  } */
+  
+

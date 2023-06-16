@@ -20,6 +20,9 @@
     <!-- content section -->
     @yield('content')
 
+    <!-- contactform section -->
+    @yield('contactform')
+
     <!-- footer section -->
     @include('partials.footer.footer')
 

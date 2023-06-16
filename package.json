@@ -1,11 +1,13 @@
 {
     "private": true,
-    "type": "module",
+    "type": "commonjs",
     "scripts": {
         "dev": "vite",
         "build": "vite build"
     },
     "devDependencies": {
+        "@babel/plugin-transform-modules-commonjs": "^7.22.5",
+        "@babel/preset-env": "^7.22.5",
         "autoprefixer": "^10.4.14",
         "axios": "^1.1.2",
         "laravel-mix": "^6.0.49",
@@ -16,6 +18,8 @@
     },
     "dependencies": {
         "alpinejs": "^3.12.1",
-        "flowbite": "^1.6.5"
+        "flowbite": "^1.6.5",
+        "tw-elements": "^1.0.0-beta2",
+        "webpack-cli": "^5.1.4"
     }
 }
