@@ -7,32 +7,29 @@
 
     <section class="w-3/5">
         <div class="pb-8 flex justify-center">
-            <div class=" flex">
-                <img src="{{ asset('images/suveniri.jpg') }}" alt="" class=" max-h-80  rounded-lg">
+            <div class="flex" id="main-image-container">
+                <img id="main-image" src="{{ asset('images/suveniri.jpg') }}" alt="" class=" max-h-80  rounded-lg">
             </div>
         </div>
 
         <div class="px-4 image-grid">
-            <div class="flex-1 image-container">
+            <div class="flex-1 image-container" data-image="{{ asset('images/main-logo.jpg') }}" onclick="swapImage(this)">
                     <img src="{{ asset('images/main-logo.jpg') }}" alt="" class="image-container">
                     <div class="overlay"></div>
             </div>
-            <div class="flex-1 image-container">
+            <div class="flex-1 image-container" data-image="{{ asset('images/uzlimes.jpg') }}">
                     <img src="{{ asset('images/uzlimes.jpg') }}" alt="" class="image-container">
                     <div class="overlay"></div>
             </div>
-            <div class="flex-1 image-container">
-                    <img src="{{ asset('images/test2.jpg') }}" alt="" class="image-container">
+            <div class="flex-1 image-container" data-image="{{ asset('images/test3.jpg') }}">
+                    <img src="{{ asset('images/test3.jpg') }}" alt="" class="image-container">
                     <div class="overlay"></div>
             </div>
-            <div class="flex-1 image-container">
-                    <img src="{{ asset('images/test1.png') }}" alt="" class="image-container">
+            <div class="flex-1 image-container" data-image="{{ asset('images/test1.jpg') }}">
+                    <img src="{{ asset('images/test1.jpg') }}" alt="" class="image-container">
                     <div class="overlay"></div>
             </div>
         </div>
-        {{-- <div class="h-64">
-            <img src="{{ asset('images/test1.png') }}" alt="" class="object-cover w-full max-h-wull">
-        </div> --}}
     </section>
 
 {{-- alpinejs

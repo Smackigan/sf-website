@@ -21,3 +21,23 @@ document.addEventListener('DOMContentLoaded', () => {
         imageContainer.classList.remove('hovered');
     });
 });
+
+// const mainImageContainer = document.getElementById('main-image-container');
+const mainImage = document.getElementById('main-image');
+const imageContainers = document.querySelectorAll('.image-container');
+
+imageContainers.forEach((container) => {
+    container.addEventListener('click', () => {
+        const currentMainImage = mainImage.getAttribute('src');
+        const clickedImage = container.querySelector('img');
+        const clickedImageSrc = clickedImage.getAttribute('src');
+    
+        mainImage.setAttribute('src', clickedImageSrc);
+        clickedImage.setAttribute('src', currentMainImage);
+        container.dataset.image = currentMainImage;
+    });
+});
+
+// function changeImage(img) {
+//     document.getElementById('main-image').src=img.src;
+// }

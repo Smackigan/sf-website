@@ -14972,6 +14972,24 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// const mainImageContainer = document.getElementById('main-image-container');
+var mainImage = document.getElementById('main-image');
+var imageContainers = document.querySelectorAll('.image-container');
+imageContainers.forEach(function (container) {
+  container.addEventListener('click', function () {
+    var currentMainImage = mainImage.getAttribute('src');
+    var clickedImage = container.querySelector('img');
+    var clickedImageSrc = clickedImage.getAttribute('src');
+    mainImage.setAttribute('src', clickedImageSrc);
+    clickedImage.setAttribute('src', currentMainImage);
+    container.dataset.image = currentMainImage;
+  });
+});
+
+// function changeImage(img) {
+//     document.getElementById('main-image').src=img.src;
+// }
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
