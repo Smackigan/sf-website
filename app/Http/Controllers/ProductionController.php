@@ -34,7 +34,7 @@ class ProductionController extends Controller
         //                                 ->where('category', $subcategory->category)
         //                                 ->firstOrFail();
 
-        return view('partials.content.productionElement', compact('category', 'subcategory'));
+        return view('partials.content.product-elem', compact('category', 'subcategory'));
     }
     // public function store(Request $request) 
     // {

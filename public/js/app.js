@@ -9019,9 +9019,6 @@ var Accordion = /** @class */ (function () {
     };
     return Accordion;
 }());
-if (typeof window !== 'undefined') {
-    window.Accordion = Accordion;
-}
 function initAccordions() {
     document.querySelectorAll('[data-accordion]').forEach(function ($accordionEl) {
         var alwaysOpen = $accordionEl.getAttribute('data-accordion');
@@ -9031,16 +9028,20 @@ function initAccordions() {
         $accordionEl
             .querySelectorAll('[data-accordion-target]')
             .forEach(function ($triggerEl) {
-            var item = {
-                id: $triggerEl.getAttribute('data-accordion-target'),
-                triggerEl: $triggerEl,
-                targetEl: document.querySelector($triggerEl.getAttribute('data-accordion-target')),
-                iconEl: $triggerEl.querySelector('[data-accordion-icon]'),
-                active: $triggerEl.getAttribute('aria-expanded') === 'true'
-                    ? true
-                    : false,
-            };
-            items.push(item);
+            // Consider only items that directly belong to $accordionEl
+            // (to make nested accordions work).
+            if ($triggerEl.closest('[data-accordion]') === $accordionEl) {
+                var item = {
+                    id: $triggerEl.getAttribute('data-accordion-target'),
+                    triggerEl: $triggerEl,
+                    targetEl: document.querySelector($triggerEl.getAttribute('data-accordion-target')),
+                    iconEl: $triggerEl.querySelector('[data-accordion-icon]'),
+                    active: $triggerEl.getAttribute('aria-expanded') === 'true'
+                        ? true
+                        : false,
+                };
+                items.push(item);
+            }
         });
         new Accordion(items, {
             alwaysOpen: alwaysOpen === 'open' ? true : false,
@@ -9052,6 +9053,10 @@ function initAccordions() {
                 : Default.inactiveClasses,
         });
     });
+}
+if (typeof window !== 'undefined') {
+    window.Accordion = Accordion;
+    window.initAccordions = initAccordions;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Accordion);
 //# sourceMappingURL=index.js.map
@@ -9278,9 +9283,6 @@ var Carousel = /** @class */ (function () {
     };
     return Carousel;
 }());
-if (typeof window !== 'undefined') {
-    window.Carousel = Carousel;
-}
 function initCarousels() {
     document.querySelectorAll('[data-carousel]').forEach(function ($carouselEl) {
         var interval = $carouselEl.getAttribute('data-carousel-interval');
@@ -9334,6 +9336,10 @@ function initCarousels() {
             });
         }
     });
+}
+if (typeof window !== 'undefined') {
+    window.Carousel = Carousel;
+    window.initCarousels = initCarousels;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Carousel);
 //# sourceMappingURL=index.js.map
@@ -9451,9 +9457,6 @@ var Collapse = /** @class */ (function () {
     };
     return Collapse;
 }());
-if (typeof window !== 'undefined') {
-    window.Collapse = Collapse;
-}
 function initCollapses() {
     document
         .querySelectorAll('[data-collapse-toggle]')
@@ -9468,6 +9471,10 @@ function initCollapses() {
             console.error("The target element with id \"".concat(targetId, "\" does not exist. Please check the data-collapse-toggle attribute."));
         }
     });
+}
+if (typeof window !== 'undefined') {
+    window.Collapse = Collapse;
+    window.initCollapses = initCollapses;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Collapse);
 //# sourceMappingURL=index.js.map
@@ -9621,9 +9628,6 @@ var Dial = /** @class */ (function () {
     };
     return Dial;
 }());
-if (typeof window !== 'undefined') {
-    window.Dial = Dial;
-}
 function initDials() {
     document.querySelectorAll('[data-dial-init]').forEach(function ($parentEl) {
         var $triggerEl = $parentEl.querySelector('[data-dial-toggle]');
@@ -9646,6 +9650,10 @@ function initDials() {
             console.error("Dial with id ".concat($parentEl.id, " does not have a trigger element. Are you sure that the data-dial-toggle attribute exists?"));
         }
     });
+}
+if (typeof window !== 'undefined') {
+    window.Dial = Dial;
+    window.initDials = initDials;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dial);
 //# sourceMappingURL=index.js.map
@@ -9736,9 +9744,6 @@ var Dismiss = /** @class */ (function () {
     };
     return Dismiss;
 }());
-if (typeof window !== 'undefined') {
-    window.Dismiss = Dismiss;
-}
 function initDismisses() {
     document.querySelectorAll('[data-dismiss-target]').forEach(function ($triggerEl) {
         var targetId = $triggerEl.getAttribute('data-dismiss-target');
@@ -9750,6 +9755,10 @@ function initDismisses() {
             console.error("The dismiss element with id \"".concat(targetId, "\" does not exist. Please check the data-dismiss-target attribute."));
         }
     });
+}
+if (typeof window !== 'undefined') {
+    window.Dismiss = Dismiss;
+    window.initDismisses = initDismisses;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dismiss);
 //# sourceMappingURL=index.js.map
@@ -9990,9 +9999,6 @@ var Drawer = /** @class */ (function () {
     };
     return Drawer;
 }());
-if (typeof window !== 'undefined') {
-    window.Drawer = Drawer;
-}
 var getDrawerInstance = function (id, instances) {
     if (instances.some(function (drawerInstance) { return drawerInstance.id === id; })) {
         return instances.find(function (drawerInstance) { return drawerInstance.id === id; });
@@ -10100,6 +10106,10 @@ function initDrawers() {
             console.error("Drawer with id ".concat(drawerId, " not found. Are you sure that the data-drawer-target attribute points to the correct drawer id?"));
         }
     });
+}
+if (typeof window !== 'undefined') {
+    window.Drawer = Drawer;
+    window.initDrawers = initDrawers;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Drawer);
 //# sourceMappingURL=index.js.map
@@ -10339,9 +10349,6 @@ var Dropdown = /** @class */ (function () {
     };
     return Dropdown;
 }());
-if (typeof window !== 'undefined') {
-    window.Dropdown = Dropdown;
-}
 function initDropdowns() {
     document
         .querySelectorAll('[data-dropdown-toggle]')
@@ -10372,6 +10379,10 @@ function initDropdowns() {
             console.error("The dropdown element with id \"".concat(dropdownId, "\" does not exist. Please check the data-dropdown-toggle attribute."));
         }
     });
+}
+if (typeof window !== 'undefined') {
+    window.Dropdown = Dropdown;
+    window.initDropdowns = initDropdowns;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dropdown);
 //# sourceMappingURL=index.js.map
@@ -10449,6 +10460,9 @@ function initFlowbite() {
     (0,_tooltip__WEBPACK_IMPORTED_MODULE_10__.initTooltips)();
     (0,_popover__WEBPACK_IMPORTED_MODULE_8__.initPopovers)();
     (0,_dial__WEBPACK_IMPORTED_MODULE_3__.initDials)();
+}
+if (typeof window !== 'undefined') {
+    window.initFlowbite = initFlowbite;
 }
 //# sourceMappingURL=index.js.map
 
@@ -10628,9 +10642,6 @@ var Modal = /** @class */ (function () {
     };
     return Modal;
 }());
-if (typeof window !== 'undefined') {
-    window.Modal = Modal;
-}
 var getModalInstance = function (id, instances) {
     if (instances.some(function (modalInstance) { return modalInstance.id === id; })) {
         return instances.find(function (modalInstance) { return modalInstance.id === id; });
@@ -10732,6 +10743,10 @@ function initModals() {
             console.error("Modal with id ".concat(modalId, " does not exist. Are you sure that the data-modal-hide attribute points to the correct modal id?"));
         }
     });
+}
+if (typeof window !== 'undefined') {
+    window.Modal = Modal;
+    window.initModals = initModals;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Modal);
 //# sourceMappingURL=index.js.map
@@ -10968,9 +10983,6 @@ var Popover = /** @class */ (function () {
     };
     return Popover;
 }());
-if (typeof window !== 'undefined') {
-    window.Popover = Popover;
-}
 function initPopovers() {
     document.querySelectorAll('[data-popover-target]').forEach(function ($triggerEl) {
         var popoverID = $triggerEl.getAttribute('data-popover-target');
@@ -10991,6 +11003,10 @@ function initPopovers() {
             console.error("The popover element with id \"".concat(popoverID, "\" does not exist. Please check the data-popover-target attribute."));
         }
     });
+}
+if (typeof window !== 'undefined') {
+    window.Popover = Popover;
+    window.initPopovers = initPopovers;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Popover);
 //# sourceMappingURL=index.js.map
@@ -11117,9 +11133,6 @@ var Tabs = /** @class */ (function () {
     };
     return Tabs;
 }());
-if (typeof window !== 'undefined') {
-    window.Tabs = Tabs;
-}
 function initTabs() {
     document.querySelectorAll('[data-tabs-toggle]').forEach(function ($triggerEl) {
         var tabItems = [];
@@ -11142,6 +11155,10 @@ function initTabs() {
             defaultTabId: defaultTabId,
         });
     });
+}
+if (typeof window !== 'undefined') {
+    window.Tabs = Tabs;
+    window.initTabs = initTabs;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tabs);
 //# sourceMappingURL=index.js.map
@@ -11362,9 +11379,6 @@ var Tooltip = /** @class */ (function () {
     };
     return Tooltip;
 }());
-if (typeof window !== 'undefined') {
-    window.Tooltip = Tooltip;
-}
 function initTooltips() {
     document.querySelectorAll('[data-tooltip-target]').forEach(function ($triggerEl) {
         var tooltipId = $triggerEl.getAttribute('data-tooltip-target');
@@ -11383,6 +11397,10 @@ function initTooltips() {
             console.error("The tooltip element with id \"".concat(tooltipId, "\" does not exist. Please check the data-tooltip-target attribute."));
         }
     });
+}
+if (typeof window !== 'undefined') {
+    window.Tooltip = Tooltip;
+    window.initTooltips = initTooltips;
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Tooltip);
 //# sourceMappingURL=index.js.map
@@ -11474,7 +11492,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   initDismisses: () => (/* reexport safe */ _components_dismiss__WEBPACK_IMPORTED_MODULE_4__.initDismisses),
 /* harmony export */   initDrawers: () => (/* reexport safe */ _components_drawer__WEBPACK_IMPORTED_MODULE_7__.initDrawers),
 /* harmony export */   initDropdowns: () => (/* reexport safe */ _components_dropdown__WEBPACK_IMPORTED_MODULE_5__.initDropdowns),
-/* harmony export */   initFlowbite: () => (/* reexport safe */ _components_index__WEBPACK_IMPORTED_MODULE_34__.initFlowbite),
+/* harmony export */   initFlowbite: () => (/* reexport safe */ _components_index__WEBPACK_IMPORTED_MODULE_12__.initFlowbite),
 /* harmony export */   initModals: () => (/* reexport safe */ _components_modal__WEBPACK_IMPORTED_MODULE_6__.initModals),
 /* harmony export */   initPopovers: () => (/* reexport safe */ _components_popover__WEBPACK_IMPORTED_MODULE_10__.initPopovers),
 /* harmony export */   initTabs: () => (/* reexport safe */ _components_tabs__WEBPACK_IMPORTED_MODULE_8__.initTabs),
@@ -11492,29 +11510,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_tooltip__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tooltip */ "./node_modules/flowbite/lib/esm/components/tooltip/index.js");
 /* harmony import */ var _components_popover__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/popover */ "./node_modules/flowbite/lib/esm/components/popover/index.js");
 /* harmony import */ var _components_dial__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/dial */ "./node_modules/flowbite/lib/esm/components/dial/index.js");
-/* harmony import */ var _components_accordion_types__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/accordion/types */ "./node_modules/flowbite/lib/esm/components/accordion/types.js");
-/* harmony import */ var _components_carousel_types__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/carousel/types */ "./node_modules/flowbite/lib/esm/components/carousel/types.js");
-/* harmony import */ var _components_collapse_types__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/collapse/types */ "./node_modules/flowbite/lib/esm/components/collapse/types.js");
-/* harmony import */ var _components_dial_types__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/dial/types */ "./node_modules/flowbite/lib/esm/components/dial/types.js");
-/* harmony import */ var _components_dismiss_types__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/dismiss/types */ "./node_modules/flowbite/lib/esm/components/dismiss/types.js");
-/* harmony import */ var _components_drawer_types__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/drawer/types */ "./node_modules/flowbite/lib/esm/components/drawer/types.js");
-/* harmony import */ var _components_dropdown_types__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/dropdown/types */ "./node_modules/flowbite/lib/esm/components/dropdown/types.js");
-/* harmony import */ var _components_modal_types__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/modal/types */ "./node_modules/flowbite/lib/esm/components/modal/types.js");
-/* harmony import */ var _components_popover_types__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/popover/types */ "./node_modules/flowbite/lib/esm/components/popover/types.js");
-/* harmony import */ var _components_tabs_types__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/tabs/types */ "./node_modules/flowbite/lib/esm/components/tabs/types.js");
-/* harmony import */ var _components_tooltip_types__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/tooltip/types */ "./node_modules/flowbite/lib/esm/components/tooltip/types.js");
-/* harmony import */ var _components_accordion_interface__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/accordion/interface */ "./node_modules/flowbite/lib/esm/components/accordion/interface.js");
-/* harmony import */ var _components_carousel_interface__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/carousel/interface */ "./node_modules/flowbite/lib/esm/components/carousel/interface.js");
-/* harmony import */ var _components_collapse_interface__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/collapse/interface */ "./node_modules/flowbite/lib/esm/components/collapse/interface.js");
-/* harmony import */ var _components_dial_interface__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/dial/interface */ "./node_modules/flowbite/lib/esm/components/dial/interface.js");
-/* harmony import */ var _components_dismiss_interface__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/dismiss/interface */ "./node_modules/flowbite/lib/esm/components/dismiss/interface.js");
-/* harmony import */ var _components_drawer_interface__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/drawer/interface */ "./node_modules/flowbite/lib/esm/components/drawer/interface.js");
-/* harmony import */ var _components_dropdown_interface__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/dropdown/interface */ "./node_modules/flowbite/lib/esm/components/dropdown/interface.js");
-/* harmony import */ var _components_modal_interface__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/modal/interface */ "./node_modules/flowbite/lib/esm/components/modal/interface.js");
-/* harmony import */ var _components_popover_interface__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/popover/interface */ "./node_modules/flowbite/lib/esm/components/popover/interface.js");
-/* harmony import */ var _components_tabs_interface__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./components/tabs/interface */ "./node_modules/flowbite/lib/esm/components/tabs/interface.js");
-/* harmony import */ var _components_tooltip_interface__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./components/tooltip/interface */ "./node_modules/flowbite/lib/esm/components/tooltip/interface.js");
-/* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/index */ "./node_modules/flowbite/lib/esm/components/index.js");
+/* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/index */ "./node_modules/flowbite/lib/esm/components/index.js");
+/* harmony import */ var _components_accordion_types__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/accordion/types */ "./node_modules/flowbite/lib/esm/components/accordion/types.js");
+/* harmony import */ var _components_carousel_types__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/carousel/types */ "./node_modules/flowbite/lib/esm/components/carousel/types.js");
+/* harmony import */ var _components_collapse_types__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/collapse/types */ "./node_modules/flowbite/lib/esm/components/collapse/types.js");
+/* harmony import */ var _components_dial_types__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/dial/types */ "./node_modules/flowbite/lib/esm/components/dial/types.js");
+/* harmony import */ var _components_dismiss_types__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/dismiss/types */ "./node_modules/flowbite/lib/esm/components/dismiss/types.js");
+/* harmony import */ var _components_drawer_types__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/drawer/types */ "./node_modules/flowbite/lib/esm/components/drawer/types.js");
+/* harmony import */ var _components_dropdown_types__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/dropdown/types */ "./node_modules/flowbite/lib/esm/components/dropdown/types.js");
+/* harmony import */ var _components_modal_types__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/modal/types */ "./node_modules/flowbite/lib/esm/components/modal/types.js");
+/* harmony import */ var _components_popover_types__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/popover/types */ "./node_modules/flowbite/lib/esm/components/popover/types.js");
+/* harmony import */ var _components_tabs_types__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/tabs/types */ "./node_modules/flowbite/lib/esm/components/tabs/types.js");
+/* harmony import */ var _components_tooltip_types__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/tooltip/types */ "./node_modules/flowbite/lib/esm/components/tooltip/types.js");
+/* harmony import */ var _components_accordion_interface__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/accordion/interface */ "./node_modules/flowbite/lib/esm/components/accordion/interface.js");
+/* harmony import */ var _components_carousel_interface__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/carousel/interface */ "./node_modules/flowbite/lib/esm/components/carousel/interface.js");
+/* harmony import */ var _components_collapse_interface__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/collapse/interface */ "./node_modules/flowbite/lib/esm/components/collapse/interface.js");
+/* harmony import */ var _components_dial_interface__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/dial/interface */ "./node_modules/flowbite/lib/esm/components/dial/interface.js");
+/* harmony import */ var _components_dismiss_interface__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/dismiss/interface */ "./node_modules/flowbite/lib/esm/components/dismiss/interface.js");
+/* harmony import */ var _components_drawer_interface__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/drawer/interface */ "./node_modules/flowbite/lib/esm/components/drawer/interface.js");
+/* harmony import */ var _components_dropdown_interface__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/dropdown/interface */ "./node_modules/flowbite/lib/esm/components/dropdown/interface.js");
+/* harmony import */ var _components_modal_interface__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/modal/interface */ "./node_modules/flowbite/lib/esm/components/modal/interface.js");
+/* harmony import */ var _components_popover_interface__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./components/popover/interface */ "./node_modules/flowbite/lib/esm/components/popover/interface.js");
+/* harmony import */ var _components_tabs_interface__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./components/tabs/interface */ "./node_modules/flowbite/lib/esm/components/tabs/interface.js");
+/* harmony import */ var _components_tooltip_interface__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/tooltip/interface */ "./node_modules/flowbite/lib/esm/components/tooltip/interface.js");
+
 
 
 
@@ -14962,8 +14981,68 @@ window.Alpine = Alpine;
   Collapse: _twElements.Collapse,
   Ripple: _twElements.Ripple
 });
+
+// Hover effect of images for product
 document.addEventListener('DOMContentLoaded', function () {
-  var imageContainer = document.querySelector('.image-container');
+  var gridImageContainer = document.querySelector('.grid-image-container');
+  gridImageContainer.addEventListener('mouseover', function () {
+    gridImageContainer.classList.add('hovered');
+  });
+  gridImageContainer.addEventListener('mouseout', function () {
+    gridImageContainer.classList.remove('hovered');
+  });
+});
+
+// Image swap for product on main page
+var mainImage = document.getElementById('main-image');
+var gridImageContainers = document.querySelectorAll('.grid-image-container');
+var mainImageContainer = document.getElementById('main-image-container');
+var overlay = document.querySelector('.overlay-container');
+var closeBtn = document.querySelector('.item-overlay__close-btn');
+var overlayImage = document.getElementById('item-overlay__main-img');
+var mainOverlayImage = document.getElementById('item-overlay__main-imgimg');
+var initialMainImageSrc = mainImage.getAttribute('src');
+gridImageContainers.forEach(function (container) {
+  container.addEventListener('click', function () {
+    // with click retrieve src of mainimage and clicked
+    var currentMainImageSrc = mainImage.getAttribute('src');
+    var clickedImageSrc = container.querySelector('img').getAttribute('src');
+
+    // swapping main img and clicked img
+    mainImage.setAttribute('src', clickedImageSrc);
+    container.querySelector('img').setAttribute('src', currentMainImageSrc);
+    container.dataset.image = currentMainImageSrc;
+    overlayImage.setAttribute('src', clickedImageSrc);
+    mainImageContainer.dataset.image = clickedImageSrc; // Update overlay main image
+  });
+});
+
+// main image to overlay
+mainImageContainer.addEventListener('click', function () {
+  var currentMainImageSrc = mainImage.getAttribute('src');
+  mainOverlayImage.setAttribute('src', currentMainImageSrc);
+  overlay.classList.add('show');
+});
+
+// ______________________ Function to handle image swapping within the overlay
+var overlayImageContainers = document.querySelectorAll('.item-overlay__img-container');
+// const mainOverlayImage = document.getElementById('item-overlay__main-imgimg');
+
+overlayImageContainers.forEach(function (container) {
+  container.addEventListener('click', function () {
+    var currentOverlayImageSrc = mainOverlayImage.getAttribute('src');
+    var clickedImageSrc = container.querySelector('img').getAttribute('src');
+    console.log(clickedImageSrc);
+    mainOverlayImage.setAttribute('src', clickedImageSrc);
+    container.querySelector('img').setAttribute('src', currentOverlayImageSrc);
+    container.dataset.image = currentOverlayImageSrc;
+  });
+});
+
+/////////////////////////////////////////////////
+// Hover effect of overlay images
+document.addEventListener('DOMContentLoaded', function () {
+  var imageContainer = document.querySelector('.item-overlay__img-container');
   imageContainer.addEventListener('mouseover', function () {
     imageContainer.classList.add('hovered');
   });
@@ -14972,23 +15051,22 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// const mainImageContainer = document.getElementById('main-image-container');
-var mainImage = document.getElementById('main-image');
-var imageContainers = document.querySelectorAll('.image-container');
-imageContainers.forEach(function (container) {
-  container.addEventListener('click', function () {
-    var currentMainImage = mainImage.getAttribute('src');
-    var clickedImage = container.querySelector('img');
-    var clickedImageSrc = clickedImage.getAttribute('src');
-    mainImage.setAttribute('src', clickedImageSrc);
-    clickedImage.setAttribute('src', currentMainImage);
-    container.dataset.image = currentMainImage;
-  });
+// Overlay class removal 
+document.addEventListener('click', function (event) {
+  if (event.target.matches('.overlay-container') || event.target.matches('.item-overlay__close-btn')) {
+    overlay.classList.remove('show');
+    overlayImage.setAttribute('src', initialMainImageSrc);
+    mainOverlayImage.setAttribute('src', initialMainImageSrc);
+    console.log('overlay closed');
+  }
 });
 
-// function changeImage(img) {
-//     document.getElementById('main-image').src=img.src;
-// }
+// Close button
+closeBtn.addEventListener('click', function (event) {
+  event.stopPropagation();
+  overlay.classList.remove('show');
+  console.log('btn pushed');
+});
 
 /***/ }),
 
